@@ -39,7 +39,15 @@ public class SocialMediaController {
 
     // TODO - LOG IN USER
     // Handler for logging in a user
-
+    @PostMapping("/login")
+    public ResponseEntity loginUser(@RequestBody Account account) {
+        Account loggedAccount = accountService.loginAccount(account);
+        if (loggedAccount != null) {
+            return ResponseEntity.status(200).body(loggedAccount);
+        } else {
+            return ResponseEntity.status(401).body("login failed!");
+        }
+    }
     // TODO - EDIT PROFILE
     // Handler for editing profile
 

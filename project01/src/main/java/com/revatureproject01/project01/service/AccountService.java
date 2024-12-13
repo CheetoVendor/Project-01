@@ -26,10 +26,16 @@ public class AccountService {
         }
     }
 
-    // TODO - Authenticate Account
-
     // TODO - Log in account
-
+    public Account loginAccount(Account account) {
+        Account loggedAccount = accountRepository.findByUsernameAndPassword(account.getUsername(),
+                account.getPassword());
+        if (loggedAccount != null) {
+            return loggedAccount;
+        } else {
+            return null;
+        }
+    }
     // TODO - EDIT ACCOUNT BY ID
 
     public boolean usernameExists(String username) {
