@@ -52,4 +52,17 @@ public class LoginAccountTest {
         Account actualResult = om.readValue(response.body().toString(), Account.class);
         Assertions.assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    public void loginUnsuccessful() throws IOException, InterruptedException {
+        String json = "{\"accountId\":9999,\"username\":\"testuser404\",\"password\":\"password\"}";
+        HttpRequest postRequest = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:8080/login"))
+                .POST(HttpRequest.BodyPublishers.ofString(json))
+                .header("Content-Type", "application/json")
+                .build();
+        HttpResponse<String> response = webClient.send(postRequest, HttpResponse.BodyHandlers.ofString());
+        int status = response.statusCode();
+        Assertions.assertEquals(401, status, "Expected Status Code 401 - Actual Code was: " + status);
+    }
 }
