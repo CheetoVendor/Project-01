@@ -1,5 +1,7 @@
 package com.revatureproject01.project01.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,8 +38,27 @@ public class AccountService {
             return null;
         }
     }
-    // TODO - EDIT ACCOUNT BY ID
 
+    // TODO - EDIT ACCOUNT BY ID
+    public int updateAccountById(Account account) {
+        // get basic logic first
+        Optional<Account> optionalAccount = accountRepository.findById(account.getAccountId());
+
+        if (optionalAccount.isPresent()) {
+            Account accountToUpdate = optionalAccount.get();
+
+            accountToUpdate.setBioText(account.getBioText());
+            accountToUpdate.setProfilePicture(account.getProfilePicture());
+
+            accountRepository.save(accountToUpdate);
+            return 1;
+        } else {
+            return 0;
+        }
+
+    }
+
+    // Checks of username exists in the database
     public boolean usernameExists(String username) {
         Account accountOptional = accountRepository.findByUsername(username);
         if (accountOptional != null) {
