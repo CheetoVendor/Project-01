@@ -58,6 +58,11 @@ public class PostController {
     // TODO - Handler to edit post
     @PatchMapping("/posts/{postId}")
     public ResponseEntity updatePost(@PathVariable Integer postId, @RequestBody Post post) {
-        return null;
+        Post posted = postService.updatePostById(postId, post);
+        if (posted != null) {
+            return ResponseEntity.status(200).body(posted);
+        } else {
+            return ResponseEntity.status(400).body(null);
+        }
     }
 }

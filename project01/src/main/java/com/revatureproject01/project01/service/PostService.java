@@ -48,6 +48,21 @@ public class PostService {
             return 0;
         }
     }
+
+    // TODO - update post
+    public Post updatePostById(Integer id, Post post) {
+        Optional<Post> optional = postRepository.findById(id);
+        if (optional.isPresent()) {
+            Post update = optional.get();
+            update.setPostText(post.getPostText());
+            update.setImageUrl(post.getImageUrl());
+            update.setVideoUrl(post.getVideoUrl());
+            postRepository.save(update);
+            return update;
+        } else {
+            return null;
+        }
+    }
     // TODO - search posts
 
 }
