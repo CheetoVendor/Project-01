@@ -1,10 +1,11 @@
 package com.revatureproject01.project01.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revatureproject01.project01.entity.Comment;
-import com.revatureproject01.project01.entity.Like;
 import com.revatureproject01.project01.entity.Post;
 import com.revatureproject01.project01.repository.CommentRepository;
 import com.revatureproject01.project01.repository.LikeRepository;
@@ -32,14 +33,15 @@ public class PostService {
         return commentRepository.save(comment);
     }
 
-    // TODO - add a like/react to a post
-    public Like addReaction(Like like) {
-        return likeRepository.save(like);
+    // TODO - get posts by user id
+    public List<Post> getPostByUserId(Integer id) {
+        return postRepository.findByPostedBy(id);
     }
 
-    // TODO - get posts by user id
-
-    // TODO - get likes by post id
+    // TODO - Get all posts
+    public List<Post> getAllPosts() {
+        return postRepository.findAll();
+    }
 
     // TODO - get comments by post id
 
