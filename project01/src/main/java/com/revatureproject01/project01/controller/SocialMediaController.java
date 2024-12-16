@@ -27,9 +27,6 @@ public class SocialMediaController {
         this.postService = postService;
     }
 
-    // #region Post Region
-
-    // #endregion
     // #region Comments
     @GetMapping("/posts/{postId}/comments")
     public ResponseEntity getCommentsByPost(@PathVariable Integer postId) {
