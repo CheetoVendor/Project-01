@@ -13,7 +13,6 @@ import com.revatureproject01.project01.service.PostService;
 
 @RestController
 public class SocialMediaController {
-
     AccountService accountService;
 
     @Autowired
