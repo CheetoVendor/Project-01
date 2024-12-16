@@ -1,6 +1,7 @@
 package com.revatureproject01.project01.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,16 @@ public class PostService {
         return postRepository.findAll();
     }
 
+    public Integer deletePostById(Integer id) {
+        Optional<Post> optional = postRepository.findById(id);
+        if (optional.isPresent()) {
+            Post post = optional.get();
+            postRepository.delete(post);
+            return 1;
+        } else {
+            return 0;
+        }
+    }
     // TODO - search posts
 
 }

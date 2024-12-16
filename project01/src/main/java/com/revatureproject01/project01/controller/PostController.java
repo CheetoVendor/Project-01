@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,9 +31,33 @@ public class PostController {
         return ResponseEntity.status(200).body(posts);
     }
 
+    // Handler to get all posts from user
+    @GetMapping("/accounts/{accountId}/posts")
+    public ResponseEntity getPostsByUser(@PathVariable Integer accountId) {
+        List<Post> posts = postService.getPostByUserId(accountId);
+        return ResponseEntity.status(200).body(posts);
+    }
+
     // handler to add a post
     @PostMapping("/posts")
     public ResponseEntity createPost(@RequestBody Post post) {
         return ResponseEntity.status(200).body(post);
+    }
+
+    // handler to delete post
+    @DeleteMapping("/posts/{postId}")
+    public ResponseEntity deletePost(@PathVariable Integer postId) {
+        int rows = postService.deletePostById(postId);
+        if (rows > 0) {
+            return ResponseEntity.status(200).body(rows);
+        } else {
+            return ResponseEntity.status(200).body("");
+        }
+    }
+
+    // TODO - Handler to edit post
+    @PatchMapping("/posts/{postId}")
+    public ResponseEntity updatePost(@PathVariable Integer postId, @RequestBody Post post) {
+        return null;
     }
 }
