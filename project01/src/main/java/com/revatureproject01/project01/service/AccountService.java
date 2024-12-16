@@ -39,22 +39,19 @@ public class AccountService {
         }
     }
 
-    // TODO - EDIT ACCOUNT BY ID
-    public int updateAccountById(Account account) {
-        // get basic logic first
-        Optional<Account> optionalAccount = accountRepository.findById(account.getAccountId());
-
-        if (optionalAccount.isPresent()) {
-            Account accountToUpdate = optionalAccount.get();
-
-            accountToUpdate.setBioText(account.getBioText());
-            accountToUpdate.setProfilePicture(account.getProfilePicture());
-
-            accountRepository.save(accountToUpdate);
-            return 1;
+    // TODO - get account by id
+    public Account getAccountById(Integer id) {
+        Optional<Account> accountOptional = accountRepository.findById(id);
+        if (accountOptional.isPresent()) {
+            return accountOptional.get();
         } else {
-            return 0;
+            return null;
         }
+    }
+
+    // TODO - EDIT ACCOUNT BY ID
+    public Account updateAccountById(Account account) {
+        return accountRepository.save(account);
 
     }
 

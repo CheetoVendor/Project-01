@@ -36,7 +36,7 @@ public class CommentService {
     }
 
     // TODO - find comments for a post
-    public List<Comment> getCommentsByPost(Integer postId) {
+    public List<Comment> getCommentsByPostId(Integer postId) {
         return commentRepository.findByPostId(postId);
     }
 
