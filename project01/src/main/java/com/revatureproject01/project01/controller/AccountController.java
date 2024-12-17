@@ -2,6 +2,7 @@ package com.revatureproject01.project01.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,8 +23,6 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    // #region Account Region
-
     // Handler for registering a user
     @PostMapping("/register")
     public ResponseEntity registerUser(@RequestBody Account account) {
@@ -42,6 +41,7 @@ public class AccountController {
 
     // TODO - LOG IN USER
     // Handler for logging in a user
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/login")
     public ResponseEntity loginUser(@RequestBody Account account) {
         Account loggedAccount = accountService.loginAccount(account);
@@ -72,5 +72,4 @@ public class AccountController {
         }
     }
 
-    // #endregion
 }
