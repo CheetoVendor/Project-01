@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revatureproject01.project01.entity.Account;
 import com.revatureproject01.project01.entity.Post;
 import com.revatureproject01.project01.repository.CommentRepository;
 import com.revatureproject01.project01.repository.LikeRepository;
@@ -29,8 +30,8 @@ public class PostService {
     }
 
     // TODO - get posts by user id
-    public List<Post> getPostByUserId(Integer id) {
-        return postRepository.findByPostedBy(id);
+    public List<Post> getPostByUser(Account account) {
+        return postRepository.findByPostedBy(account);
     }
 
     // TODO - Get all posts

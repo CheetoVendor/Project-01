@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,8 +17,9 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer postId;
 
-    @Column(name = "posted_by")
-    private Integer postedBy;
+    @ManyToOne
+    @JoinColumn(name = "posted_by", referencedColumnName = "account_id")
+    private Account postedBy;
 
     @Column(name = "post_text")
     private String postText;
@@ -35,11 +38,11 @@ public class Post {
         this.postId = postId;
     }
 
-    public Integer getPostedBy() {
+    public Account getPostedBy() {
         return postedBy;
     }
 
-    public void setPostedBy(Integer postedBy) {
+    public void setPostedBy(Account postedBy) {
         this.postedBy = postedBy;
     }
 

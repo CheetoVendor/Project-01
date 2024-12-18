@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revatureproject01.project01.entity.Account;
 import com.revatureproject01.project01.entity.Post;
 import com.revatureproject01.project01.service.PostService;
 
@@ -35,15 +36,17 @@ public class PostController {
 
     // Handler to get all posts from user
     @GetMapping("/accounts/{accountId}/posts")
-    public ResponseEntity getPostsByUser(@PathVariable Integer accountId) {
-        List<Post> posts = postService.getPostByUserId(accountId);
+    public ResponseEntity getPostsByUser(@PathVariable Account account) {
+        List<Post> posts = postService.getPostByUser(account);
         return ResponseEntity.status(200).body(posts);
     }
 
     // handler to add a post
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/posts")
     public ResponseEntity createPost(@RequestBody Post post) {
-        return ResponseEntity.status(200).body(post);
+        Post posted = postService.createPost(post);
+        return ResponseEntity.status(200).body(posted);
     }
 
     // handler to delete post
