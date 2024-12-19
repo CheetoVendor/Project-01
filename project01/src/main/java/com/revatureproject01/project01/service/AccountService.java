@@ -64,4 +64,9 @@ public class AccountService {
             return false;
         }
     }
+
+    public Account findByUsername(String username) {
+        return accountRepository.findByUsername(username);
+    }
+
 }

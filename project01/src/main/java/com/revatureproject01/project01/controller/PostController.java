@@ -17,6 +17,7 @@ import com.revatureproject01.project01.entity.Account;
 import com.revatureproject01.project01.entity.Post;
 import com.revatureproject01.project01.service.PostService;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class PostController {
     PostService postService;
@@ -27,7 +28,6 @@ public class PostController {
     }
 
     // Handler to get all posts
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/posts")
     public ResponseEntity getAllPosts() {
         List<Post> posts = postService.getAllPosts();
@@ -42,7 +42,6 @@ public class PostController {
     }
 
     // handler to add a post
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/posts")
     public ResponseEntity createPost(@RequestBody Post post) {
         Post posted = postService.createPost(post);

@@ -15,6 +15,7 @@ import com.revatureproject01.project01.exceptions.UsernameExistsException;
 import com.revatureproject01.project01.service.AccountService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class AccountController {
     AccountService accountService;
 

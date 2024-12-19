@@ -53,7 +53,7 @@ insert into
     )
 VALUES (
         'test',
-        'test',
+        '$2a$12$W2YLeUSYw7c6SlciV7k4H.xcX0WvDdh/B1G5bAnPXNn19nY40CKPO',
         'https://imgv3.fotor.com/images/blog-cover-image/10-profile-picture-ideas-to-make-you-stand-out.jpg'
     );
 
