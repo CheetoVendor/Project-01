@@ -25,18 +25,13 @@ public class JwtTokenUtil {
     public String generateToken(String username) {
         Map<String, Object> claims = new HashMap<>();
 
-        return Jwts.builder().addClaims(claims).setSubject(username)
-                .setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis() + expiration))
+        return Jwts.builder()
+                .addClaims(claims)
+                .setSubject(username)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(secret)
                 .compact();
-        /*
-         * return Jwts.builder()
-         * .setSubject(username)
-         * .setIssuedAt(new Date())
-         * .setExpiration(new Date(System.currentTimeMillis() + expiration))
-         * .signWith(SignatureAlgorithm.HS512, secret)
-         * .compact();
-         */
     }
 
     public Boolean validateToken(String token, String username) {

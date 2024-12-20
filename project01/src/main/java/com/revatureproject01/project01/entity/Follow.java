@@ -2,6 +2,8 @@ package com.revatureproject01.project01.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -9,6 +11,10 @@ import jakarta.persistence.Table;
 @Table(name = "follow")
 public class Follow {
     @Id
+    @Column(name = "follow_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer followId;
+
     @Column(name = "follower_id")
     private Integer followerId;
     @Column(name = "followed_id")
@@ -38,5 +44,13 @@ public class Follow {
 
     public void setTimeCreatedEpoch(Long timeCreatedEpoch) {
         this.timeCreatedEpoch = timeCreatedEpoch;
+    }
+
+    public Integer getFollowId() {
+        return followId;
+    }
+
+    public void setFollowId(Integer followId) {
+        this.followId = followId;
     }
 }

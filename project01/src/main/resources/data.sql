@@ -38,11 +38,27 @@ create table if not exists likes (
 );
 
 create table if not exists follow (
+    follow_id int primary key auto_increment,
     follower_id int,
     followed_id int,
     time_created_epoch bigint,
     foreign key (follower_id) references account (account_id),
     foreign key (followed_id) references account (account_id)
+);
+
+-- STATUS KEY
+-- 0 - Pending
+-- 1 - Accepted
+-- -1 - Declined
+
+create table if not exists friend (
+    friend_id int primary key auto_increment,
+    friend_status int,
+    friender_id int,
+    friended_id int,
+    time_created_epoch bigint,
+    foreign key (friender_id) references account (account_id),
+    foreign key (friended_id) references account (account_id)
 );
 
 insert into
@@ -57,6 +73,26 @@ VALUES (
         'https://imgv3.fotor.com/images/blog-cover-image/10-profile-picture-ideas-to-make-you-stand-out.jpg'
     );
 
+insert INTO
+    account (
+        username,
+        password,
+        profile_picture_url
+    )
+VALUES (
+        'Peter Griffin',
+        '$2a$12$W2YLeUSYw7c6SlciV7k4H.xcX0WvDdh/B1G5bAnPXNn19nY40CKPO',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDmsLwfBRlH9chKLfDIQdljtUuAHTbI_7XUw&s'
+    );
+
+insert INTO
+    friend (
+        friend_status,
+        friender_id,
+        friended_id
+    )
+values (1, 2, 1);
+
 INSERT INTO
     post (
         posted_by,
@@ -67,25 +103,25 @@ INSERT INTO
 VALUES (
         1,
         'Look at this adorable kitten!',
-        'https://example.com/cat1.jpg',
+        'https://media.gettyimages.com/id/138468381/photo/kitten-on-lap.jpg?s=2048x2048&w=gi&k=20&c=dVn6n2Bg01K9mbVR7V4PDmSYY47n_nQFhoii_FW73JE=',
         'https://example.com/cat_video1.mp4'
     ),
     (
         1,
         'My cat loves to sleep on the couch all day.',
-        'https://example.com/cat2.jpg',
+        'https://media.gettyimages.com/id/1480061433/photo/cute-siamese-kitten-on-a-sofa.jpg?s=2048x2048&w=gi&k=20&c=2ObQfDsQ4WHIx8bQCu5aIkPe9c4Gl_nvrEQ8UWvvCM8=',
         'https://example.com/cat_video2.mp4'
     ),
     (
         1,
         'This cat just caught its first mouse!',
-        'https://example.com/cat3.jpg',
+        'https://media.gettyimages.com/id/157512060/photo/kitten-plays-with-toy-mouse.jpg?s=2048x2048&w=gi&k=20&c=FnqOuEba3LcI0hV0joTO1_1DQxnt2iA4DrPSgTqVYMo=',
         'https://example.com/cat_video3.mp4'
     ),
     (
         1,
         'Meet my new cat, Whiskers!',
-        'https://example.com/cat4.jpg',
+        'https://media.gettyimages.com/id/158906394/photo/kitten-playing-with-mouse-toy-on-floor.jpg?s=2048x2048&w=gi&k=20&c=VNIPg8Lsj8fo7jcqDvzmTACtCHks3LRbZgF0BEfxOMw=',
         'https://example.com/cat_video4.mp4'
     ),
     (
