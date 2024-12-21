@@ -56,6 +56,7 @@ public class AccountController {
     // TODO - EDIT PROFILE
     // Handler for editing profile
     @PatchMapping("/profile/{accountId}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity updateProfile(@RequestBody Account account) {
         Account updatedAccount = accountService.updateAccountById(account);
         return ResponseEntity.status(200).body(updatedAccount);
@@ -64,6 +65,7 @@ public class AccountController {
     // TODO - VIEW PROFILE
     // Handler for getting profile by id
     @GetMapping("/profile/{accountId}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity getProfileById(@PathVariable Integer accountId) {
         Account account = accountService.getAccountById(accountId);
         if (account != null) {

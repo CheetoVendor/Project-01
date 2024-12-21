@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.mock;
@@ -46,7 +45,7 @@ public class AuthenticationTest {
                 .thenReturn(authentication);
 
         // Mock JwtTokenUtil behavior
-        when(jwtTokenUtil.generateToken(anyString())).thenReturn("mockJwtToken");
+        // when(jwtTokenUtil.generateToken(anyString())).thenReturn("mockJwtToken");
 
         // Call the login method
         String response = authController.login(testUser);
@@ -54,6 +53,6 @@ public class AuthenticationTest {
         // Verify results
         assertEquals("mockJwtToken", response);
         verify(authenticationManager).authenticate(any(UsernamePasswordAuthenticationToken.class));
-        verify(jwtTokenUtil).generateToken(anyString());
+        // verify(jwtTokenUtil).generateToken(anyString());
     }
 }

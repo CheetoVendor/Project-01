@@ -36,7 +36,8 @@ public class AuthController {
         try {
             var authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
             var authentication = authenticationManager.authenticate(authenticationToken);
-            var jwt = jwtTokenUtil.generateToken(authentication.getName());
+            Account authenticatedAccount = userService.findByUsername(user.getUsername());
+            var jwt = jwtTokenUtil.generateToken(authentication.getName(), authenticatedAccount.getAccountId());
             return jwt;
         } catch (AuthenticationException e) {
             e.printStackTrace();

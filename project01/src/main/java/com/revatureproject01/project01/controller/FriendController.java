@@ -22,6 +22,7 @@ public class FriendController {
         this.friendService = friendService;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/friends/{id}")
     public ResponseEntity getUsersFriends(@PathVariable Integer userId) {
         List<Friend> friends = friendService.getFriends(userId);
