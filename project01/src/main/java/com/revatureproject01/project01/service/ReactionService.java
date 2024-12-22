@@ -44,4 +44,17 @@ public class ReactionService {
     public List<Like> getReactionsByPostId(Integer postId) {
         return likeRepository.findByPostId(postId);
     }
+
+    // See if post is liked
+    public boolean isPostLiked(Integer postId, Integer accountId, Integer type) {
+        Like like = likeRepository.findByPostIdAndAccountIdAndType(postId,
+                accountId, type);
+
+        if (like != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

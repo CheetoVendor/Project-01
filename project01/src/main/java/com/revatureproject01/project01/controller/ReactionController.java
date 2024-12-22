@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,5 +53,12 @@ public class ReactionController {
     public ResponseEntity updateReaction(@RequestBody Like like) {
         Like updatedLike = reactionService.updateReaction(like);
         return ResponseEntity.status(200).body(updatedLike);
+    }
+
+    @GetMapping("/posts/{postId}/likes")
+    public boolean isPostLiked(@PathVariable Integer postId, @PathVariable Integer accountId,
+            @PathVariable Integer type) {
+        return reactionService.isPostLiked(postId, accountId, type);
+
     }
 }

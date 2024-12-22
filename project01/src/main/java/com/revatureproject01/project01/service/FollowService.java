@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revatureproject01.project01.entity.Account;
 import com.revatureproject01.project01.entity.Follow;
 import com.revatureproject01.project01.repository.FollowRepository;
 
@@ -23,17 +24,22 @@ public class FollowService {
     }
 
     // get following
-    public List<Follow> getAccountsFollowing(Integer accountId) {
-        return followRepository.findByFollowerId(accountId);
+    public List<Follow> getAccountsFollowing(Account account) {
+        return followRepository.findByFollower(account);
     }
 
     // get followed by id
-    public List<Follow> getAccountsFollowed(Integer accountId) {
-        return followRepository.findByFollowedId(accountId);
+    public List<Follow> getAccountsFollowed(Account account) {
+        return followRepository.findByFollowed(account);
     }
 
     // delete follow
     public void removeFollow(Follow follow) {
         followRepository.delete(follow);
     }
+
+    public boolean isFollowed(Account follower, Account followed) {
+        return followRepository.existsByFollowerAndFollowed(follower, followed);
+    }
+
 }

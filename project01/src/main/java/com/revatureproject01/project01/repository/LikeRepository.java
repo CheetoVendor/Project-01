@@ -10,4 +10,6 @@ import com.revatureproject01.project01.entity.Like;
 @Repository
 public interface LikeRepository extends JpaRepository<Like, Integer> {
     List<Like> findByPostId(Integer postId);
+
+    Like findByPostIdAndAccountIdAndType(Integer postId, Integer accountId, Integer Type);
 }

@@ -36,8 +36,8 @@ public class PostController {
 
     // Handler to get all posts from user
     @GetMapping("/accounts/{accountId}/posts")
-    public ResponseEntity getPostsByUser(@PathVariable Account account) {
-        List<Post> posts = postService.getPostByUser(account);
+    public ResponseEntity getPostsByUser(@PathVariable Account accountId) {
+        List<Post> posts = postService.getPostByUser(accountId);
         return ResponseEntity.status(200).body(posts);
     }
 

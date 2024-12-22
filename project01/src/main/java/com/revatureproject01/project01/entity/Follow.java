@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,27 +17,31 @@ public class Follow {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer followId;
 
-    @Column(name = "follower_id")
-    private Integer followerId;
-    @Column(name = "followed_id")
-    private Integer followedId;
+    @ManyToOne
+    @JoinColumn(name = "follower_id", referencedColumnName = "account_id")
+    private Account follower;
+
+    @ManyToOne
+    @JoinColumn(name = "followed_id", referencedColumnName = "account_id")
+    private Account followed;
+
     @Column(name = "time_created_epoch")
     private Long timeCreatedEpoch;
 
-    public Integer getFollowerId() {
-        return followerId;
+    public Account getFollower() {
+        return follower;
     }
 
-    public void setFollowerId(Integer followerId) {
-        this.followerId = followerId;
+    public void setFollower(Account follower) {
+        this.follower = follower;
     }
 
-    public Integer getFollowedId() {
-        return followedId;
+    public Account getFollowed() {
+        return followed;
     }
 
-    public void setFollowedId(Integer followedId) {
-        this.followedId = followedId;
+    public void setFollowed(Account followed) {
+        this.followed = followed;
     }
 
     public Long getTimeCreatedEpoch() {

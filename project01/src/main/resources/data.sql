@@ -65,24 +65,39 @@ insert into
     account (
         username,
         password,
-        profile_picture_url
+        profile_picture_url,
+        bio_text,
+        time_created_epoch
     )
 VALUES (
         'test',
         '$2a$12$W2YLeUSYw7c6SlciV7k4H.xcX0WvDdh/B1G5bAnPXNn19nY40CKPO',
-        'https://imgv3.fotor.com/images/blog-cover-image/10-profile-picture-ideas-to-make-you-stand-out.jpg'
+        'https://imgv3.fotor.com/images/blog-cover-image/10-profile-picture-ideas-to-make-you-stand-out.jpg',
+        'Hello, i am test and i adore cats.',
+        1734480000
     );
 
 insert INTO
     account (
         username,
         password,
-        profile_picture_url
+        profile_picture_url,
+        bio_text,
+        time_created_epoch
     )
 VALUES (
         'Peter Griffin',
         '$2a$12$W2YLeUSYw7c6SlciV7k4H.xcX0WvDdh/B1G5bAnPXNn19nY40CKPO',
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDmsLwfBRlH9chKLfDIQdljtUuAHTbI_7XUw&s'
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDmsLwfBRlH9chKLfDIQdljtUuAHTbI_7XUw&s',
+        'I am peter griffin. I hate my son meg.',
+        1734480000
+    ),
+    (
+        'Meg Griffin',
+        'password',
+        'https://www.liveabout.com/thmb/oqgn39JLqboH95tVVLAG0vWYsKI=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/meg_2008_v2F-56a00c203df78cafda9fcd70.jpg',
+        'I like Quagmire',
+        1234480000
     );
 
 insert INTO
@@ -129,4 +144,16 @@ VALUES (
         'Isn’t this the cutest cat video ever?',
         'https://example.com/cat5.jpg',
         'https://example.com/cat_video5.mp4'
+    ),
+    (
+        2,
+        'I just farted on meg!',
+        'https://i.pinimg.com/564x/54/97/06/549706d300bd20c251f4138aebf3dc46.jpg',
+        ''
+    ),
+    (
+        3,
+        'I just made pie with hair and cheetos',
+        '',
+        ''
     );
