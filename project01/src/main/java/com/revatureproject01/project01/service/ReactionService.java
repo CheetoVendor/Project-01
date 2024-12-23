@@ -1,7 +1,6 @@
 package com.revatureproject01.project01.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,11 +23,11 @@ public class ReactionService {
     }
 
     // TODO - remove reaction
-    public int removeReaction(Like like) {
-        Optional<Like> optionalLike = likeRepository.findById(like.getLikeId());
-        if (optionalLike.isPresent()) {
-            Like rm = optionalLike.get();
-            likeRepository.delete(rm);
+    public int removeReaction(Integer postId, Integer userId, Integer type) {
+        Like optionalLike = likeRepository.findByPostIdAndAccountIdAndType(postId, userId, type);
+        if (optionalLike != null) {
+            likeRepository.delete(optionalLike);
+
             return 1;
         } else {
             return 0;

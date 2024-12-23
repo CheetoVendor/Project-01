@@ -38,14 +38,10 @@ public class ReactionController {
     }
 
     // delete reaction
-    @DeleteMapping("/posts/{postId}/likes/{likeId}")
-    public ResponseEntity deleteReaction(@RequestBody Like like) {
-        int rows = reactionService.removeReaction(like);
-        if (rows > 0) {
-            return ResponseEntity.status(200).body(rows);
-        } else {
-            return ResponseEntity.status(200).body("");
-        }
+    @DeleteMapping("/posts/{postId}/likes")
+    public ResponseEntity<String> deleteReaction(@PathVariable Integer postId, Integer accountId, Integer type) {
+        int removed = reactionService.removeReaction(postId, postId, type);
+        return ResponseEntity.status(200).body(removed + "removed");
     }
 
     // update reaction
