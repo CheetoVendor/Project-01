@@ -1,13 +1,18 @@
 package com.revatureproject01.project01.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revatureproject01.project01.entity.Account;
 import com.revatureproject01.project01.entity.Comment;
 import com.revatureproject01.project01.service.CommentService;
 
@@ -27,15 +32,30 @@ public class CommentController {
         return ResponseEntity.status(200).body(comments);
     }
 
-    // TODO - add a comment
-    /*
-     * @PostMapping("/posts/{postId}/comments")
-     * public ResponseEntity createComment(@RequestBody Comment comment) {
-     * // Comment comment = commentService.addComment(comment)
-     * }
-     */
-    // TODO - delete a comment
+    @PostMapping("/posts/{postId}/comments")
+    public ResponseEntity createComment(@PathVariable Integer postId, @RequestBody Map<String, Object> commentData) {
+        String text = (String) commentData.get("text");
+        Integer accountId = Integer.parseInt((String) commentData.get("accountId"));
 
-    // UPDATE A COMMENT
+        Comment comment = new Comment();
+        comment.setPostId(postId);
+        comment.setText(text);
+        Account x = new Account();
+        x.setAccountId(accountId);
+        comment.setPostedBy(x);
+        comment.setTimePostedEpoch(System.currentTimeMillis());
+        comment.setTimeUpdatedEpoch(System.currentTimeMillis());
+
+        comment = commentService.addComment(comment);
+        return ResponseEntity.status(200).body(comment);
+    }
+
+    @DeleteMapping("/comments/{commentId}")
+    public ResponseEntity deleteComment(@PathVariable Integer commentId) {
+        Comment comment = new Comment();
+        comment.setCommentId(commentId);
+        int x = commentService.removeComment(comment);
+        return ResponseEntity.status(200).body(x + "removed");
+    }
 
 }

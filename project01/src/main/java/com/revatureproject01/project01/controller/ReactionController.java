@@ -3,19 +3,20 @@ package com.revatureproject01.project01.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revatureproject01.project01.entity.Like;
 import com.revatureproject01.project01.service.ReactionService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class ReactionController {
     ReactionService reactionService;
 
@@ -24,7 +25,8 @@ public class ReactionController {
     }
 
     // TODO - get reactions on post
-    @RequestMapping("/posts/{postId}/likes")
+    @GetMapping("/posts/{postId}/likes")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity getReactionsOnPost(@PathVariable Integer postId) {
         List<Like> likes = reactionService.getReactionsByPostId(postId);
         return ResponseEntity.status(200).body(likes);
@@ -32,6 +34,7 @@ public class ReactionController {
 
     // todo - add reaction
     @PostMapping("/posts/{postId}/likes")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity createReaction(@RequestBody Like like) {
         Like liked = reactionService.addReaction(like);
         return ResponseEntity.status(200).body(liked);
@@ -39,22 +42,26 @@ public class ReactionController {
 
     // delete reaction
     @DeleteMapping("/posts/{postId}/likes")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<String> deleteReaction(@PathVariable Integer postId, Integer accountId, Integer type) {
-        int removed = reactionService.removeReaction(postId, postId, type);
+        int removed = reactionService.removeReaction(postId, accountId, type);
         return ResponseEntity.status(200).body(removed + "removed");
     }
 
     // update reaction
     @PatchMapping("/posts/{postId}/likes/{likeId}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity updateReaction(@RequestBody Like like) {
         Like updatedLike = reactionService.updateReaction(like);
         return ResponseEntity.status(200).body(updatedLike);
     }
 
-    @GetMapping("/posts/{postId}/likes")
-    public boolean isPostLiked(@PathVariable Integer postId, @PathVariable Integer accountId,
+    @GetMapping("/likes/{postId}/{userId}/{type}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public boolean isPostLikedByUser(@PathVariable Integer postId, @PathVariable Integer userId,
             @PathVariable Integer type) {
-        return reactionService.isPostLiked(postId, accountId, type);
 
+        boolean liked = reactionService.isPostLiked(postId, userId, type);
+        return liked;
     }
 }

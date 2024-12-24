@@ -51,7 +51,15 @@ public class AccountService {
 
     // TODO - EDIT ACCOUNT BY ID
     public Account updateAccountById(Account account) {
-        return accountRepository.save(account);
+        Optional<Account> optional = accountRepository.findById(account.getAccountId());
+        if (optional.isPresent()) {
+            Account update = optional.get();
+            update.setBioText(account.getBioText());
+            update.setUsername(account.getUsername());
+            return accountRepository.save(update);
+        } else {
+            return null;
+        }
 
     }
 

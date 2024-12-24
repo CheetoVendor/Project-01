@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,8 +18,10 @@ public class Comment {
     private Integer commentId;
     @Column(name = "post_id")
     private Integer postId;
-    @Column(name = "posted_by")
-    private Integer postedBy;
+
+    @ManyToOne
+    @JoinColumn(name = "posted_by", referencedColumnName = "account_id")
+    private Account postedBy;
     @Column(name = "comment_text")
     private String text;
     @Column(name = "time_posted_epoch")
@@ -41,11 +45,11 @@ public class Comment {
         this.postId = postId;
     }
 
-    public Integer getPostedBy() {
+    public Account getPostedBy() {
         return postedBy;
     }
 
-    public void setPostedBy(Integer postedBy) {
+    public void setPostedBy(Account postedBy) {
         this.postedBy = postedBy;
     }
 

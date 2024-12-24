@@ -45,4 +45,29 @@ public class FriendService {
         return true;
 
     }
+
+    public List<Friend> getPendingFriendRequests(Integer userId) {
+        Account x = new Account();
+        x.setAccountId(userId);
+
+        return friendRepository.findByFriendedAndFriendStatus(x, 0);
+    }
+
+    public void deleteRequestById(Integer friendId) {
+        Friend x = new Friend();
+        x.setFriendId(friendId);
+        friendRepository.delete(x);
+    }
+
+    public void acceptFriendRequest(Integer friendId) {
+        Friend friend = friendRepository.findByFriendId(friendId);
+        friend.setFriendStatus(1);
+        friendRepository.save(friend);
+    }
+
+    public void declineFriendRequest(Integer friendId) {
+        Friend friend = friendRepository.findByFriendId(friendId);
+        friend.setFriendStatus(0);
+        friendRepository.save(friend);
+    }
 }

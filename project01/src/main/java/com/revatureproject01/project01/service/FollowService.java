@@ -23,19 +23,25 @@ public class FollowService {
         return followRepository.save(follow);
     }
 
-    // get following
-    public List<Follow> getAccountsFollowing(Account account) {
-        return followRepository.findByFollower(account);
+    // get followers
+    public List<Account> getFollowers(Integer account) {
+        return followRepository.findFollowersByAccountId(account);
     }
 
-    // get followed by id
-    public List<Follow> getAccountsFollowed(Account account) {
-        return followRepository.findByFollowed(account);
+    // get accounts a user is following
+    public List<Account> getFollowing(Integer accountId) {
+        return followRepository.findFollowingByAccountId(accountId);
     }
 
     // delete follow
-    public void removeFollow(Follow follow) {
-        followRepository.delete(follow);
+    public Integer removeFollow(Integer userId, Integer unfollowId) {
+        Follow follow = followRepository.findByFollower_AccountIdAndFollowed_AccountId(userId, unfollowId);
+        if (follow == null) {
+            return 0;
+        } else {
+            followRepository.delete(follow);
+            return 1;
+        }
     }
 
     public boolean isFollowed(Account follower, Account followed) {

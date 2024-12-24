@@ -157,3 +157,27 @@ VALUES (
         '',
         ''
     );
+
+insert into
+    comments (
+        post_id,
+        posted_by,
+        comment_text
+    )
+values (
+        1,
+        1,
+        'Hello this is cool. weee!'
+    );
+
+insert into follow (follower_id, followed_id) values (1, 2);
+
+insert into follow (follower_id, followed_id) values (2, 1);
+
+insert into
+    friend (
+        friend_status,
+        friender_id,
+        friended_id
+    )
+values (0, 3, 1);

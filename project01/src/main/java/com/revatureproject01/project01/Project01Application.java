@@ -19,9 +19,8 @@ public class Project01Application {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-						.allowedOrigins("*") // Allows all origins
-						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Allows these methods
-						.allowedHeaders("*"); // Allows all headers
+						.allowedOriginPatterns("http://localhost:*") // use patterns instead of exact origins
+						.allowCredentials(true);
 			}
 		};
 	}

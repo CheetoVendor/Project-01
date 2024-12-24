@@ -5,9 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revatureproject01.project01.entity.Account;
@@ -51,5 +54,28 @@ public class FriendController {
     public ResponseEntity addFriend(@PathVariable Integer userId1, @PathVariable Integer userId2) {
         boolean sent = friendService.sendFriendRequest(userId1, userId2);
         return ResponseEntity.status(200).body(sent);
+    }
+
+    @GetMapping("/friends/{userId}/pending")
+    public ResponseEntity getUsersPendingFriends(@PathVariable Integer userId) {
+        List<Friend> requests = friendService.getPendingFriendRequests(userId);
+        return ResponseEntity.status(200).body(requests);
+    }
+
+    @DeleteMapping("/friends/{friendId}")
+    public ResponseEntity deleteFriendById(@PathVariable Integer friendId) {
+        friendService.deleteRequestById(friendId);
+        return ResponseEntity.status(200).body("success");
+    }
+
+    @PatchMapping("/friends/{friendId}")
+    public ResponseEntity updateFriendRequest(@PathVariable Integer friendId, @RequestBody Integer type) {
+        if (type == 1) {
+            friendService.acceptFriendRequest(friendId);
+        } else {
+            friendService.declineFriendRequest(friendId);
+        }
+
+        return ResponseEntity.status(200).body("request updated.");
     }
 }

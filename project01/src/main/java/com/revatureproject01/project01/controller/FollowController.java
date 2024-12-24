@@ -5,12 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revatureproject01.project01.entity.Account;
-import com.revatureproject01.project01.entity.Follow;
 import com.revatureproject01.project01.service.FollowService;
 
 @RestController
@@ -24,22 +24,15 @@ public class FollowController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/followers/{id}")
-    public ResponseEntity getUsersFollowers(@PathVariable Integer id) {
-        Account x = new Account();
-        x.setAccountId(id);
-        List<Follow> follows = followservice.getAccountsFollowing(x);
-        return ResponseEntity.status(200).body(follows);
+    @GetMapping("/followers/{accountId}")
+    public List<Account> getUsersFollowers(@PathVariable Integer accountId) {
+        return followservice.getFollowers(accountId);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/followed/{id}")
-    public ResponseEntity getUsersFollowed(@PathVariable Integer id) {
-        Account x = new Account();
-        x.setAccountId(id);
-
-        List<Follow> follows = followservice.getAccountsFollowing(x);
-        return ResponseEntity.status(200).body(follows);
+    @GetMapping("/followed/{accountId}")
+    public List<Account> getUsersFollowed(@PathVariable Integer accountId) {
+        return followservice.getFollowing(accountId);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
@@ -50,6 +43,13 @@ public class FollowController {
         Account y = new Account();
         y.setAccountId(id2);
 
-        return followservice.isFollowed(y, y);
+        return followservice.isFollowed(x, y);
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @DeleteMapping("/followed/{userId}/{unfollowId}")
+    public ResponseEntity unfollowUser(@PathVariable Integer userId, @PathVariable Integer unfollowId) {
+        int x = followservice.removeFollow(userId, unfollowId);
+        return ResponseEntity.status(200).body(x);
     }
 }

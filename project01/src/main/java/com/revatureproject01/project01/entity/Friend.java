@@ -31,6 +31,10 @@ public class Friend {
     @Column(name = "time_created_epoch")
     private Long timeCreatedEpoch;
 
+    public Friend() {
+
+    }
+
     public Integer getFriendId() {
         return friendId;
     }

@@ -1,7 +1,10 @@
 package com.revatureproject01.project01.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -28,19 +31,27 @@ public class AccountController {
     @PostMapping("/register")
     public ResponseEntity registerUser(@RequestBody Account account) {
         try {
+            PasswordEncoder encoder = new BCryptPasswordEncoder();
+            String hashedPassword = encoder.encode(account.getPassword());
+            account.setPassword(hashedPassword);
+
+            // Register the account in the database
             Account registeredAccount = accountService.registerAccount(account);
-            // if account isnt null return success with account, else return status 400
+
             if (registeredAccount != null) {
-                return ResponseEntity.status(200).body(registeredAccount);
+                return ResponseEntity.status(HttpStatus.CREATED).body(registeredAccount);
             } else {
-                return ResponseEntity.status(400).body("unsuccessful");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("Registration failed. Please check your input.");
             }
         } catch (UsernameExistsException e) {
-            return ResponseEntity.status(409).body("Username exists");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Username already exists");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while processing the request");
         }
     }
 
-    // TODO - LOG IN USER
     // Handler for logging in a user
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/login")
@@ -53,7 +64,6 @@ public class AccountController {
         }
     }
 
-    // TODO - EDIT PROFILE
     // Handler for editing profile
     @PatchMapping("/profile/{accountId}")
     @CrossOrigin(origins = "http://localhost:3000")
@@ -62,7 +72,6 @@ public class AccountController {
         return ResponseEntity.status(200).body(updatedAccount);
     }
 
-    // TODO - VIEW PROFILE
     // Handler for getting profile by id
     @GetMapping("/profile/{accountId}")
     @CrossOrigin(origins = "http://localhost:3000")
