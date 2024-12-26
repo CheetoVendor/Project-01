@@ -19,7 +19,8 @@ public class ReactionService {
 
     // TODO - add reaction
     public Like addReaction(Like like) {
-        return likeRepository.save(like);
+        Like saved = likeRepository.save(like);
+        return saved;
     }
 
     // TODO - remove reaction
