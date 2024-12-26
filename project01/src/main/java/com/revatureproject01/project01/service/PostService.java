@@ -23,18 +23,17 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    // TODO - Create a post
+    // Creates a post
     public Post createPost(Post post) {
-        // TODO - add checks later
         return postRepository.save(post);
     }
 
-    // TODO - get posts by user id
+    // Gets post by user
     public List<Post> getPostByUser(Account account) {
         return postRepository.findByPostedBy(account);
     }
 
-    // TODO - Get all posts
+    // Gets all posts
     public List<Post> getAllPosts() {
         return postRepository.findAll();
     }
@@ -50,7 +49,7 @@ public class PostService {
         }
     }
 
-    // TODO - update post
+    // update post
     public Post updatePostById(Integer id, Post post) {
         Optional<Post> optional = postRepository.findById(id);
         if (optional.isPresent()) {
@@ -64,6 +63,5 @@ public class PostService {
             return null;
         }
     }
-    // TODO - search posts
 
 }

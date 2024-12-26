@@ -11,4 +11,6 @@ import com.revatureproject01.project01.entity.Post;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Integer> {
     List<Post> findByPostedBy(Account account);
+
+    List<Post> findByPostTextContainingIgnoreCase(String postText);
 }

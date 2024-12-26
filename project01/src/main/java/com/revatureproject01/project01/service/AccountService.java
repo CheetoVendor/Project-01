@@ -19,7 +19,7 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
-    // TODO - Register account
+    // registers an account
     public Account registerAccount(Account account) throws UsernameExistsException {
         if (!usernameExists(account.getUsername())) {
             return accountRepository.save(account);
@@ -28,7 +28,7 @@ public class AccountService {
         }
     }
 
-    // TODO - Log in account
+    // logs in account
     public Account loginAccount(Account account) {
         Account loggedAccount = accountRepository.findByUsernameAndPassword(account.getUsername(),
                 account.getPassword());
@@ -39,7 +39,7 @@ public class AccountService {
         }
     }
 
-    // TODO - get account by id
+    // Gets account by ID
     public Account getAccountById(Integer id) {
         Optional<Account> accountOptional = accountRepository.findById(id);
         if (accountOptional.isPresent()) {
@@ -49,7 +49,7 @@ public class AccountService {
         }
     }
 
-    // TODO - EDIT ACCOUNT BY ID
+    // edits account by Id
     public Account updateAccountById(Account account) {
         Optional<Account> optional = accountRepository.findById(account.getAccountId());
         if (optional.isPresent()) {
@@ -73,8 +73,8 @@ public class AccountService {
         }
     }
 
+    // finds account by username
     public Account findByUsername(String username) {
         return accountRepository.findByUsername(username);
     }
-
 }

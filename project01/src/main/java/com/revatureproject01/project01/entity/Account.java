@@ -26,7 +26,6 @@ public class Account {
     private Long timeCreatedEpoch;
 
     public Account() {
-
     }
 
     public Account(String username, String password) {
