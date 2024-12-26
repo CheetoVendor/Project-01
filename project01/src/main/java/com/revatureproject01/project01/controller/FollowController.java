@@ -36,11 +36,11 @@ public class FollowController {
     }
 
     @GetMapping("/followers/{userId1}/{userId2}")
-    public boolean isUserFollowing(@PathVariable Integer id, @PathVariable Integer id2) {
+    public boolean isUserFollowing(@PathVariable Integer userId1, @PathVariable Integer userId2) {
         Account x = new Account();
-        x.setAccountId(id);
+        x.setAccountId(userId1);
         Account y = new Account();
-        y.setAccountId(id2);
+        y.setAccountId(userId2);
 
         return followservice.isFollowed(x, y);
     }

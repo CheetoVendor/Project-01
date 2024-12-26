@@ -19,9 +19,9 @@ public interface FollowRepository extends JpaRepository<Follow, Integer> {
     @Query("SELECT f.followed FROM Follow f WHERE f.follower.accountId = ?1")
     List<Account> findFollowingByAccountId(Integer accountId);
 
-    boolean existsByFollowerAndFollowed(Account follower, Account followed);
+    boolean existsByFollower_AccountIdAndFollowed_AccountId(Integer followerId, Integer followedId);
 
     void deleteByFollower_AccountIdAndFollowed_AccountId(Integer followerId, Integer followedId);
 
-    Follow findByFollower_AccountIdAndFollowed_AccountId(Integer followerId, Integer followedId);
+    List<Follow> findByFollower_AccountIdAndFollowed_AccountId(Integer followerId, Integer followedId);
 }

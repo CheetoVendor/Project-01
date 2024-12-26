@@ -39,7 +39,6 @@ public class FriendController {
     @GetMapping("/friends/{userId1}/{userId2}")
     public ResponseEntity<String> areUsersFriends(@PathVariable Integer userId1, @PathVariable Integer userId2) {
         boolean areFriends = friendService.areUsersFriends(userId1, userId2);
-
         if (areFriends) {
             return ResponseEntity.ok("friends");
         } else {

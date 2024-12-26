@@ -72,12 +72,10 @@ public class FriendService {
     }
 
     public boolean deleteFriend(Integer userId1, Integer userId2) {
-        Account x = new Account();
-        x.setAccountId(userId1);
-        Account y = new Account();
-        y.setAccountId(userId2);
-        Friend friend = friendRepository.findByFrienderOrFriended(x, y);
-
+        Friend friend = friendRepository.findByFriender_AccountIdAndFriended_AccountId(userId1, userId2);
+        if (friend == null) {
+            friend = friendRepository.findByFriender_AccountIdAndFriended_AccountId(userId2, userId1);
+        }
         if (friend != null) {
             friendRepository.delete(friend);
             return true;
