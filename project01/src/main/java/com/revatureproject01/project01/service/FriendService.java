@@ -70,4 +70,19 @@ public class FriendService {
         friend.setFriendStatus(0);
         friendRepository.save(friend);
     }
+
+    public boolean deleteFriend(Integer userId1, Integer userId2) {
+        Account x = new Account();
+        x.setAccountId(userId1);
+        Account y = new Account();
+        y.setAccountId(userId2);
+        Friend friend = friendRepository.findByFrienderOrFriended(x, y);
+
+        if (friend != null) {
+            friendRepository.delete(friend);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -27,7 +27,6 @@ public class FriendController {
         this.friendService = friendService;
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/friends/{id}")
     public ResponseEntity getUsersFriends(@PathVariable Integer id) {
         Account x = new Account();
@@ -37,7 +36,6 @@ public class FriendController {
     }
 
     // check if user is friends with user
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/friends/{userId1}/{userId2}")
     public ResponseEntity<String> areUsersFriends(@PathVariable Integer userId1, @PathVariable Integer userId2) {
         boolean areFriends = friendService.areUsersFriends(userId1, userId2);
@@ -49,7 +47,6 @@ public class FriendController {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/friends/{userId1}/{userId2}")
     public ResponseEntity addFriend(@PathVariable Integer userId1, @PathVariable Integer userId2) {
         boolean sent = friendService.sendFriendRequest(userId1, userId2);
@@ -77,5 +74,11 @@ public class FriendController {
         }
 
         return ResponseEntity.status(200).body("request updated.");
+    }
+
+    @DeleteMapping("/friends/{userId1}/{userId2}")
+    public ResponseEntity deleteFriend(@PathVariable Integer userId1, @PathVariable Integer userId2) {
+        boolean response = friendService.deleteFriend(userId1, userId2);
+        return ResponseEntity.status(200).body(response);
     }
 }

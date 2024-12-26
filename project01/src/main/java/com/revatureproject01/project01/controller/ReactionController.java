@@ -26,7 +26,6 @@ public class ReactionController {
 
     // TODO - get reactions on post
     @GetMapping("/posts/{postId}/likes")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity getReactionsOnPost(@PathVariable Integer postId) {
         List<Like> likes = reactionService.getReactionsByPostId(postId);
         return ResponseEntity.status(200).body(likes);
@@ -34,7 +33,6 @@ public class ReactionController {
 
     // todo - add reaction
     @PostMapping("/posts/{postId}/likes")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity createReaction(@RequestBody Like like) {
         Like liked = reactionService.addReaction(like);
         return ResponseEntity.status(200).body(liked);
@@ -42,7 +40,6 @@ public class ReactionController {
 
     // delete reaction
     @DeleteMapping("/posts/{postId}/likes")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<String> deleteReaction(@PathVariable Integer postId, Integer accountId, Integer type) {
         int removed = reactionService.removeReaction(postId, accountId, type);
         return ResponseEntity.status(200).body(removed + "removed");
@@ -50,14 +47,12 @@ public class ReactionController {
 
     // update reaction
     @PatchMapping("/posts/{postId}/likes/{likeId}")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity updateReaction(@RequestBody Like like) {
         Like updatedLike = reactionService.updateReaction(like);
         return ResponseEntity.status(200).body(updatedLike);
     }
 
     @GetMapping("/likes/{postId}/{userId}/{type}")
-    @CrossOrigin(origins = "http://localhost:3000")
     public boolean isPostLikedByUser(@PathVariable Integer postId, @PathVariable Integer userId,
             @PathVariable Integer type) {
 
