@@ -38,6 +38,7 @@ public class PostService {
         return postRepository.findAll();
     }
 
+    // deletes a post by its id
     public Integer deletePostById(Integer id) {
         Optional<Post> optional = postRepository.findById(id);
         if (optional.isPresent()) {

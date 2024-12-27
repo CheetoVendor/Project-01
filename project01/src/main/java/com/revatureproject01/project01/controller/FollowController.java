@@ -25,16 +25,19 @@ public class FollowController {
         this.followservice = followService;
     }
 
+    // Gets followers for a user
     @GetMapping("/followers/{accountId}")
     public List<Account> getUsersFollowers(@PathVariable Integer accountId) {
         return followservice.getFollowers(accountId);
     }
 
+    // gets people a user is following
     @GetMapping("/followed/{accountId}")
     public List<Account> getUsersFollowed(@PathVariable Integer accountId) {
         return followservice.getFollowing(accountId);
     }
 
+    // returns whether or not a user is following a specific user
     @GetMapping("/followers/{userId1}/{userId2}")
     public boolean isUserFollowing(@PathVariable Integer userId1, @PathVariable Integer userId2) {
         Account x = new Account();
@@ -45,6 +48,7 @@ public class FollowController {
         return followservice.isFollowed(x, y);
     }
 
+    // unfollows a user
     @DeleteMapping("/followed/{userId}/{unfollowId}")
     public ResponseEntity unfollowUser(@PathVariable Integer userId, @PathVariable Integer unfollowId) {
         int x = followservice.removeFollow(userId, unfollowId);

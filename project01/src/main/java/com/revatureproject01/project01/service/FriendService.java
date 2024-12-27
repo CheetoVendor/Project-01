@@ -21,15 +21,18 @@ public class FriendService {
         this.accountService = accountService;
     }
 
+    // gets friends a user has
     public List<Friend> getUsersFriends(Account x) {
         return friendRepository.findByFrienderOrFriendedAndFriendStatus(x, x, 1);
     }
 
+    // returns whether user a and b or friends
     public boolean areUsersFriends(Integer userId1, Integer userId2) {
         return friendRepository.existsByFriender_AccountIdAndFriended_AccountIdAndFriendStatus(userId1, userId2, 1) ||
                 friendRepository.existsByFriender_AccountIdAndFriended_AccountIdAndFriendStatus(userId2, userId1, 1);
     }
 
+    // sends a friend request in status 1 (pending)
     public boolean sendFriendRequest(Integer userId1, Integer userId2) {
         if (userId1 == userId2) {
             return false;
@@ -46,6 +49,7 @@ public class FriendService {
 
     }
 
+    // returns friend requests in status 1 (pending)
     public List<Friend> getPendingFriendRequests(Integer userId) {
         Account x = new Account();
         x.setAccountId(userId);
@@ -53,24 +57,28 @@ public class FriendService {
         return friendRepository.findByFriendedAndFriendStatus(x, 0);
     }
 
+    // deletes a friend request
     public void deleteRequestById(Integer friendId) {
         Friend x = new Friend();
         x.setFriendId(friendId);
         friendRepository.delete(x);
     }
 
+    // accepts a friend request and puts to status 1 (accepted)
     public void acceptFriendRequest(Integer friendId) {
         Friend friend = friendRepository.findByFriendId(friendId);
         friend.setFriendStatus(1);
         friendRepository.save(friend);
     }
 
+    // declines a friend request and puts to status 0 (denied)
     public void declineFriendRequest(Integer friendId) {
         Friend friend = friendRepository.findByFriendId(friendId);
         friend.setFriendStatus(0);
         friendRepository.save(friend);
     }
 
+    // deletes a friend
     public boolean deleteFriend(Integer userId1, Integer userId2) {
         Friend friend = friendRepository.findByFriender_AccountIdAndFriended_AccountId(userId1, userId2);
         if (friend == null) {

@@ -17,13 +17,13 @@ public class ReactionService {
         this.likeRepository = likeRepository;
     }
 
-    // TODO - add reaction
+    // Adds a reaction
     public Like addReaction(Like like) {
         Like saved = likeRepository.save(like);
         return saved;
     }
 
-    // TODO - remove reaction
+    // removes a reaction by type 1 (like) or type 2 (love)
     public int removeReaction(Integer postId, Integer userId, Integer type) {
         Like optionalLike = likeRepository.findByPostIdAndAccountIdAndType(postId, userId, type);
         if (optionalLike != null) {
@@ -35,17 +35,17 @@ public class ReactionService {
         }
     }
 
-    // TODO - EDIT REACTION
+    // updates a reaction
     public Like updateReaction(Like like) {
         return likeRepository.save(like);
     }
 
-    // TODO - get reactions by post id
+    // Gets reaction by post Id
     public List<Like> getReactionsByPostId(Integer postId) {
         return likeRepository.findByPostId(postId);
     }
 
-    // See if post is liked
+    // see if user has liked a post.
     public boolean isPostLiked(Integer postId, Integer accountId, Integer type) {
         Like like = likeRepository.findByPostIdAndAccountIdAndType(postId,
                 accountId, type);

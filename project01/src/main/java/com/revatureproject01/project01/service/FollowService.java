@@ -47,6 +47,7 @@ public class FollowService {
         return 0;
     }
 
+    // returns whether user a is following user b
     public boolean isFollowed(Account follower, Account followed) {
         return followRepository.existsByFollower_AccountIdAndFollowed_AccountId(follower.getAccountId(),
                 followed.getAccountId());

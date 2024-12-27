@@ -59,7 +59,7 @@ public class PostController {
         }
     }
 
-    // TODO - Handler to edit post
+    // Edits a post
     @PatchMapping("/posts/{postId}")
     public ResponseEntity updatePost(@PathVariable Integer postId, @RequestBody Post post) {
         Post posted = postService.updatePostById(postId, post);

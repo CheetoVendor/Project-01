@@ -27,6 +27,7 @@ public class FriendController {
         this.friendService = friendService;
     }
 
+    // Gets a users friends
     @GetMapping("/friends/{id}")
     public ResponseEntity getUsersFriends(@PathVariable Integer id) {
         Account x = new Account();
@@ -46,24 +47,28 @@ public class FriendController {
         }
     }
 
+    // sends a friend request from user a to user b. (in pending status)
     @PostMapping("/friends/{userId1}/{userId2}")
     public ResponseEntity addFriend(@PathVariable Integer userId1, @PathVariable Integer userId2) {
         boolean sent = friendService.sendFriendRequest(userId1, userId2);
         return ResponseEntity.status(200).body(sent);
     }
 
+    // gets users pending friend requests
     @GetMapping("/friends/{userId}/pending")
     public ResponseEntity getUsersPendingFriends(@PathVariable Integer userId) {
         List<Friend> requests = friendService.getPendingFriendRequests(userId);
         return ResponseEntity.status(200).body(requests);
     }
 
+    // deletes a users friend
     @DeleteMapping("/friends/{friendId}")
     public ResponseEntity deleteFriendById(@PathVariable Integer friendId) {
         friendService.deleteRequestById(friendId);
         return ResponseEntity.status(200).body("success");
     }
 
+    // updates a friend request to either 0 (denied) or 2 (accepted)
     @PatchMapping("/friends/{friendId}")
     public ResponseEntity updateFriendRequest(@PathVariable Integer friendId, @RequestBody Integer type) {
         if (type == 1) {
@@ -75,6 +80,7 @@ public class FriendController {
         return ResponseEntity.status(200).body("request updated.");
     }
 
+    // deletes a friend
     @DeleteMapping("/friends/{userId1}/{userId2}")
     public ResponseEntity deleteFriend(@PathVariable Integer userId1, @PathVariable Integer userId2) {
         boolean response = friendService.deleteFriend(userId1, userId2);

@@ -18,12 +18,12 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
 
-    // TODO - add comment
+    // Adds a comment
     public Comment addComment(Comment comment) {
         return commentRepository.save(comment);
     }
 
-    // TODO - remove comment
+    // Removes a comment
     public int removeComment(Comment comment) {
         Optional<Comment> optionalComment = commentRepository.findById(comment.getCommentId());
         if (optionalComment.isPresent()) {
@@ -35,12 +35,12 @@ public class CommentService {
         }
     }
 
-    // TODO - find comments for a post
+    // Gets the comments on a post by post id
     public List<Comment> getCommentsByPostId(Integer postId) {
         return commentRepository.findByPostId(postId);
     }
 
-    // TODO - update comment
+    // updates a comment
     public Comment updateComment(Comment comment) {
         return commentRepository.save(comment);
     }

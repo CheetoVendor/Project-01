@@ -24,14 +24,14 @@ public class ReactionController {
         this.reactionService = reactionService;
     }
 
-    // TODO - get reactions on post
+    // gets reactions on a post
     @GetMapping("/posts/{postId}/likes")
     public ResponseEntity getReactionsOnPost(@PathVariable Integer postId) {
         List<Like> likes = reactionService.getReactionsByPostId(postId);
         return ResponseEntity.status(200).body(likes);
     }
 
-    // todo - add reaction
+    // adds a reaction to apost
     @PostMapping("/posts/{postId}/likes")
     public ResponseEntity createReaction(@PathVariable Integer postId, @RequestBody Like like) {
         like.setPostId(postId);
@@ -55,6 +55,7 @@ public class ReactionController {
         return ResponseEntity.status(200).body(updatedLike);
     }
 
+    // gets whether a specific post is liked by a user or not
     @GetMapping("/likes/{postId}/{userId}/{type}")
     public boolean isPostLikedByUser(@PathVariable Integer postId, @PathVariable Integer userId,
             @PathVariable Integer type) {

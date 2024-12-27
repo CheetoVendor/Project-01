@@ -25,13 +25,14 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    // TODO - get comments on a post
+    // Gets comments on a post
     @GetMapping("/posts/{postId}/comments")
     public ResponseEntity getCommentsForPost(@PathVariable Integer postId) {
         List<Comment> comments = commentService.getCommentsByPostId(postId);
         return ResponseEntity.status(200).body(comments);
     }
 
+    // Creates a comment for a post
     @PostMapping("/posts/{postId}/comments")
     public ResponseEntity createComment(@PathVariable Integer postId, @RequestBody Map<String, Object> commentData) {
         String text = (String) commentData.get("text");
@@ -50,6 +51,7 @@ public class CommentController {
         return ResponseEntity.status(200).body(comment);
     }
 
+    // deletes a comment on a post
     @DeleteMapping("/comments/{commentId}")
     public ResponseEntity deleteComment(@PathVariable Integer commentId) {
         Comment comment = new Comment();
