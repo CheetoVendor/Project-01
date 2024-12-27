@@ -11,6 +11,9 @@ public class PostDTO {
 
     public PostDTO(Post post) {
         this.postId = post.getPostId();
+
+        this.postedBy = new AccountDTO();
+
         this.postedBy.setAccountId(post.getPostedBy().getAccountId());
         this.postedBy.setProfilePictureUrl(post.getPostedBy().getProfilePicture());
         this.postedBy.setUsername(post.getPostedBy().getUsername());

@@ -17,6 +17,8 @@ import com.revatureproject01.project01.entity.Account;
 import com.revatureproject01.project01.exceptions.UsernameExistsException;
 import com.revatureproject01.project01.service.AccountService;
 
+import DTO.AccountDTO;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class AccountController {
@@ -36,7 +38,8 @@ public class AccountController {
             account.setPassword(hashedPassword);
 
             // Register the account in the database
-            Account registeredAccount = accountService.registerAccount(account);
+            AccountDTO registeredAccount = accountService.registerAccount(account);
+            // AccountDTO dto = new AccountDTO(registeredAccount);
 
             if (registeredAccount != null) {
                 return ResponseEntity.status(HttpStatus.CREATED).body(registeredAccount);
@@ -56,8 +59,11 @@ public class AccountController {
     @PostMapping("/login")
     public ResponseEntity loginUser(@RequestBody Account account) {
         Account loggedAccount = accountService.loginAccount(account);
+
+        AccountDTO dto = new AccountDTO(loggedAccount);
+
         if (loggedAccount != null) {
-            return ResponseEntity.status(200).body(loggedAccount);
+            return ResponseEntity.status(200).body(dto);
         } else {
             return ResponseEntity.status(401).body("login failed!");
         }
@@ -67,15 +73,19 @@ public class AccountController {
     @PatchMapping("/profile/{accountId}")
     public ResponseEntity updateProfile(@RequestBody Account account) {
         Account updatedAccount = accountService.updateAccountById(account);
-        return ResponseEntity.status(200).body(updatedAccount);
+
+        AccountDTO dto = new AccountDTO(updatedAccount);
+        return ResponseEntity.status(200).body(dto);
     }
 
     // Handler for getting profile by id
     @GetMapping("/profile/{accountId}")
     public ResponseEntity getProfileById(@PathVariable Integer accountId) {
         Account account = accountService.getAccountById(accountId);
+
+        AccountDTO dto = new AccountDTO(account);
         if (account != null) {
-            return ResponseEntity.status(200).body(account);
+            return ResponseEntity.status(200).body(dto);
         } else {
             return ResponseEntity.status(404).body("profile could not be found");
         }

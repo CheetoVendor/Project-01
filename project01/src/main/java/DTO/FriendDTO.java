@@ -13,6 +13,9 @@ public class FriendDTO {
         this.friendId = friend.getFriendId();
         this.friendStatus = friend.getFriendStatus();
 
+        this.friender = new AccountDTO();
+        this.friended = new AccountDTO();
+
         this.friender.setAccountId(friend.getFriender().getAccountId());
         this.friender.setProfilePictureUrl(friend.getFriender().getProfilePicture());
         this.friender.setUsername(friend.getFriender().getUsername());

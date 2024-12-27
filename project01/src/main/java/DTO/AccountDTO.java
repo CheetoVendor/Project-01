@@ -7,6 +7,10 @@ public class AccountDTO {
     private String username;
     private String profilePictureUrl;
 
+    public AccountDTO() {
+
+    }
+
     public AccountDTO(Account account) {
         this.accountId = account.getAccountId();
         this.username = account.getUsername();

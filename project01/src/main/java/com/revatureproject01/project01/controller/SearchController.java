@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revatureproject01.project01.entity.Post;
 import com.revatureproject01.project01.service.SearchService;
 
 import DTO.AccountDTO;
+import DTO.PostDTO;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -38,7 +38,7 @@ public class SearchController {
     // searches for posts using a search string
     @GetMapping("/posts/{searchString}")
     public ResponseEntity searchPosts(@PathVariable String searchString) {
-        List<Post> postsList = new ArrayList<>();
+        List<PostDTO> postsList = new ArrayList<>();
         postsList = searchService.searchPostsByString(searchString);
         return ResponseEntity.status(200).body(postsList);
     }

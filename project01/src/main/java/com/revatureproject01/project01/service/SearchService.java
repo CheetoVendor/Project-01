@@ -12,6 +12,7 @@ import com.revatureproject01.project01.repository.AccountRepository;
 import com.revatureproject01.project01.repository.PostRepository;
 
 import DTO.AccountDTO;
+import DTO.PostDTO;
 
 @Service
 public class SearchService {
@@ -25,8 +26,13 @@ public class SearchService {
     }
 
     // Searches posts by a search string
-    public List<Post> searchPostsByString(String searchText) {
-        return postRepository.findByPostTextContainingIgnoreCase(searchText);
+    public List<PostDTO> searchPostsByString(String searchText) {
+        List<Post> posts = postRepository.findByPostTextContainingIgnoreCase(searchText);
+        List<PostDTO> dtos = new ArrayList<>();
+        for (Post post : posts) {
+            dtos.add(new PostDTO(post));
+        }
+        return dtos;
     }
 
     // searches db with a searchstring

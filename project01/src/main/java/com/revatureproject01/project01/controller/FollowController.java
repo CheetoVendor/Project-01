@@ -15,6 +15,9 @@ import com.revatureproject01.project01.entity.Account;
 import com.revatureproject01.project01.entity.Follow;
 import com.revatureproject01.project01.service.FollowService;
 
+import DTO.AccountDTO;
+import DTO.FollowDTO;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class FollowController {
@@ -27,13 +30,13 @@ public class FollowController {
 
     // Gets followers for a user
     @GetMapping("/followers/{accountId}")
-    public List<Account> getUsersFollowers(@PathVariable Integer accountId) {
+    public List<AccountDTO> getUsersFollowers(@PathVariable Integer accountId) {
         return followservice.getFollowers(accountId);
     }
 
     // gets people a user is following
     @GetMapping("/followed/{accountId}")
-    public List<Account> getUsersFollowed(@PathVariable Integer accountId) {
+    public List<AccountDTO> getUsersFollowed(@PathVariable Integer accountId) {
         return followservice.getFollowing(accountId);
     }
 
@@ -67,7 +70,7 @@ public class FollowController {
         y.setAccountId(userId2);
         follow.setFollowed(y);
 
-        Follow returned = followservice.createFollow(follow);
+        FollowDTO returned = followservice.createFollow(follow);
         return ResponseEntity.status(200).body(returned);
     }
 }

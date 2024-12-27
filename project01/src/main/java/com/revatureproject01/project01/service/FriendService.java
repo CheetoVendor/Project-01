@@ -1,5 +1,6 @@
 package com.revatureproject01.project01.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.revatureproject01.project01.entity.Account;
 import com.revatureproject01.project01.entity.Friend;
 import com.revatureproject01.project01.repository.FriendRepository;
+
+import DTO.FriendDTO;
 
 @Service
 public class FriendService {
@@ -22,8 +25,14 @@ public class FriendService {
     }
 
     // gets friends a user has
-    public List<Friend> getUsersFriends(Account x) {
-        return friendRepository.findByFrienderOrFriendedAndFriendStatus(x, x, 1);
+    public List<FriendDTO> getUsersFriends(Account x) {
+        List<Friend> friends = friendRepository.findByFrienderOrFriendedAndFriendStatus(x, x, 1);
+        List<FriendDTO> dtos = new ArrayList<>();
+
+        for (Friend friend : friends) {
+            dtos.add(new FriendDTO(friend));
+        }
+        return dtos;
     }
 
     // returns whether user a and b or friends
@@ -50,11 +59,17 @@ public class FriendService {
     }
 
     // returns friend requests in status 1 (pending)
-    public List<Friend> getPendingFriendRequests(Integer userId) {
+    public List<FriendDTO> getPendingFriendRequests(Integer userId) {
         Account x = new Account();
         x.setAccountId(userId);
 
-        return friendRepository.findByFriendedAndFriendStatus(x, 0);
+        List<Friend> pendingFriends = friendRepository.findByFriendedAndFriendStatus(x, 0);
+        List<FriendDTO> dtos = new ArrayList<>();
+
+        for (Friend friend : pendingFriends) {
+            dtos.add(new FriendDTO(friend));
+        }
+        return dtos;
     }
 
     // deletes a friend request
@@ -65,11 +80,11 @@ public class FriendService {
     }
 
     // accepts a friend request and puts to status 1 (accepted)
-    public Friend acceptFriendRequest(Integer friendId) {
+    public FriendDTO acceptFriendRequest(Integer friendId) {
         Friend friend = friendRepository.findByFriendId(friendId);
         friend.setFriendStatus(1);
-        friendRepository.save(friend);
-        return friend;
+        friend = friendRepository.save(friend);
+        return new FriendDTO(friend);
     }
 
     // declines a friend request and puts to status 0 (denied)

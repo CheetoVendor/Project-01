@@ -9,6 +9,8 @@ import com.revatureproject01.project01.entity.Account;
 import com.revatureproject01.project01.exceptions.UsernameExistsException;
 import com.revatureproject01.project01.repository.AccountRepository;
 
+import DTO.AccountDTO;
+
 @Service
 public class AccountService {
 
@@ -20,9 +22,12 @@ public class AccountService {
     }
 
     // registers an account
-    public Account registerAccount(Account account) throws UsernameExistsException {
+    public AccountDTO registerAccount(Account account) throws UsernameExistsException {
+
         if (!usernameExists(account.getUsername())) {
-            return accountRepository.save(account);
+            Account saved = accountRepository.save(account);
+            AccountDTO dto = new AccountDTO(saved);
+            return dto;
         } else {
             throw new UsernameExistsException("Username already exists!");
         }

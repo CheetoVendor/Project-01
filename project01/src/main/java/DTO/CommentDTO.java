@@ -7,6 +7,7 @@ public class CommentDTO {
     private Integer postId;
     private AccountDTO postedBy;
     private String text;
+
     private Long timePostedEpoch;
     private Long timeUpdatedEpoch;
 
@@ -18,11 +19,11 @@ public class CommentDTO {
         this.postId = postId;
     }
 
-    public AccountDTO getPostBy() {
+    public AccountDTO getPostedBy() {
         return postedBy;
     }
 
-    public void setPostBy(AccountDTO postBy) {
+    public void setPostedBy(AccountDTO postBy) {
         this.postedBy = postBy;
     }
 
@@ -57,8 +58,11 @@ public class CommentDTO {
         this.timePostedEpoch = comment.getTimePostedEpoch();
         this.timeUpdatedEpoch = comment.getTimeUpdatedEpoch();
 
+        this.postedBy = new AccountDTO();
+
         this.postedBy.setAccountId(comment.getPostedBy().getAccountId());
         this.postedBy.setProfilePictureUrl(comment.getPostedBy().getProfilePicture());
         this.postedBy.setUsername(comment.getPostedBy().getUsername());
+
     }
 }

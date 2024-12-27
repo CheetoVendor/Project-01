@@ -17,6 +17,8 @@ import com.revatureproject01.project01.entity.Account;
 import com.revatureproject01.project01.entity.Post;
 import com.revatureproject01.project01.service.PostService;
 
+import DTO.PostDTO;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class PostController {
@@ -30,21 +32,21 @@ public class PostController {
     // Handler to get all posts
     @GetMapping("/posts")
     public ResponseEntity getAllPosts() {
-        List<Post> posts = postService.getAllPosts();
+        List<PostDTO> posts = postService.getAllPosts();
         return ResponseEntity.status(200).body(posts);
     }
 
     // Handler to get all posts from user
     @GetMapping("/accounts/{accountId}/posts")
     public ResponseEntity getPostsByUser(@PathVariable Account accountId) {
-        List<Post> posts = postService.getPostByUser(accountId);
+        List<PostDTO> posts = postService.getPostByUser(accountId);
         return ResponseEntity.status(200).body(posts);
     }
 
     // handler to add a post
     @PostMapping("/posts")
     public ResponseEntity createPost(@RequestBody Post post) {
-        Post posted = postService.createPost(post);
+        PostDTO posted = postService.createPost(post);
         return ResponseEntity.status(200).body(posted);
     }
 
@@ -62,7 +64,7 @@ public class PostController {
     // Edits a post
     @PatchMapping("/posts/{postId}")
     public ResponseEntity updatePost(@PathVariable Integer postId, @RequestBody Post post) {
-        Post posted = postService.updatePostById(postId, post);
+        PostDTO posted = postService.updatePostById(postId, post);
         if (posted != null) {
             return ResponseEntity.status(200).body(posted);
         } else {

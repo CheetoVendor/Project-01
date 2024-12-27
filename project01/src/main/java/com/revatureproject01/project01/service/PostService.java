@@ -1,5 +1,6 @@
 package com.revatureproject01.project01.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,8 @@ import com.revatureproject01.project01.entity.Post;
 import com.revatureproject01.project01.repository.CommentRepository;
 import com.revatureproject01.project01.repository.LikeRepository;
 import com.revatureproject01.project01.repository.PostRepository;
+
+import DTO.PostDTO;
 
 @Service
 public class PostService {
@@ -24,18 +27,34 @@ public class PostService {
     }
 
     // Creates a post
-    public Post createPost(Post post) {
-        return postRepository.save(post);
+    public PostDTO createPost(Post post) {
+        Post p = postRepository.save(post);
+
+        PostDTO saved = new PostDTO(p);
+        return saved;
     }
 
     // Gets post by user
-    public List<Post> getPostByUser(Account account) {
-        return postRepository.findByPostedBy(account);
+    public List<PostDTO> getPostByUser(Account account) {
+        List<Post> posts = postRepository.findByPostedBy(account);
+        List<PostDTO> dtos = new ArrayList<>();
+
+        for (Post p : posts) {
+            dtos.add(new PostDTO(p));
+        }
+        return dtos;
     }
 
     // Gets all posts
-    public List<Post> getAllPosts() {
-        return postRepository.findAll();
+    public List<PostDTO> getAllPosts() {
+        List<Post> posts = postRepository.findAll();
+
+        List<PostDTO> dtos = new ArrayList<>();
+
+        for (Post post : posts) {
+            dtos.add(new PostDTO(post));
+        }
+        return dtos;
     }
 
     // deletes a post by its id
@@ -51,7 +70,7 @@ public class PostService {
     }
 
     // update post
-    public Post updatePostById(Integer id, Post post) {
+    public PostDTO updatePostById(Integer id, Post post) {
         Optional<Post> optional = postRepository.findById(id);
         if (optional.isPresent()) {
             Post update = optional.get();
@@ -59,7 +78,8 @@ public class PostService {
             update.setImageUrl(post.getImageUrl());
             update.setVideoUrl(post.getVideoUrl());
             postRepository.save(update);
-            return update;
+
+            return new PostDTO(update);
         } else {
             return null;
         }

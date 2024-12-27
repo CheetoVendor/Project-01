@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revatureproject01.project01.entity.Account;
-import com.revatureproject01.project01.entity.Friend;
 import com.revatureproject01.project01.service.FriendService;
+
+import DTO.FriendDTO;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -32,7 +33,7 @@ public class FriendController {
     public ResponseEntity getUsersFriends(@PathVariable Integer id) {
         Account x = new Account();
         x.setAccountId(id);
-        List<Friend> friends = friendService.getUsersFriends(x);
+        List<FriendDTO> friends = friendService.getUsersFriends(x);
         return ResponseEntity.status(200).body(friends);
     }
 
@@ -57,7 +58,7 @@ public class FriendController {
     // gets users pending friend requests
     @GetMapping("/friends/{userId}/pending")
     public ResponseEntity getUsersPendingFriends(@PathVariable Integer userId) {
-        List<Friend> requests = friendService.getPendingFriendRequests(userId);
+        List<FriendDTO> requests = friendService.getPendingFriendRequests(userId);
         return ResponseEntity.status(200).body(requests);
     }
 
@@ -72,7 +73,7 @@ public class FriendController {
     @PatchMapping("/friends/{friendId}")
     public ResponseEntity updateFriendRequest(@PathVariable Integer friendId, @RequestBody Integer type) {
         if (type == 1) {
-            Friend friend = friendService.acceptFriendRequest(friendId);
+            FriendDTO friend = friendService.acceptFriendRequest(friendId);
             return ResponseEntity.status(200).body(friend);
         } else {
             friendService.declineFriendRequest(friendId);

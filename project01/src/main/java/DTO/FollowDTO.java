@@ -10,6 +10,10 @@ public class FollowDTO {
 
     public FollowDTO(Follow follow) {
         this.followId = follow.getFollowId();
+
+        this.follower = new AccountDTO();
+        this.followed = new AccountDTO();
+
         this.follower.setAccountId(follow.getFollower().getAccountId());
         this.follower.setProfilePictureUrl(follow.getFollower().getProfilePicture());
         this.follower.setUsername(follow.getFollower().getUsername());

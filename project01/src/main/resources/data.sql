@@ -158,17 +158,7 @@ VALUES (
         ''
     );
 
-insert into
-    comments (
-        post_id,
-        posted_by,
-        comment_text
-    )
-values (
-        1,
-        1,
-        'Hello this is cool. weee!'
-    );
+
 
 insert into follow (follower_id, followed_id) values (1, 2);
 

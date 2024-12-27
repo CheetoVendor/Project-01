@@ -16,6 +16,8 @@ import com.revatureproject01.project01.entity.Account;
 import com.revatureproject01.project01.entity.Comment;
 import com.revatureproject01.project01.service.CommentService;
 
+import DTO.CommentDTO;
+
 @RestController
 public class CommentController {
     CommentService commentService;
@@ -28,7 +30,7 @@ public class CommentController {
     // Gets comments on a post
     @GetMapping("/posts/{postId}/comments")
     public ResponseEntity getCommentsForPost(@PathVariable Integer postId) {
-        List<Comment> comments = commentService.getCommentsByPostId(postId);
+        List<CommentDTO> comments = commentService.getCommentsByPostId(postId);
         return ResponseEntity.status(200).body(comments);
     }
 
@@ -47,8 +49,8 @@ public class CommentController {
         comment.setTimePostedEpoch(System.currentTimeMillis());
         comment.setTimeUpdatedEpoch(System.currentTimeMillis());
 
-        comment = commentService.addComment(comment);
-        return ResponseEntity.status(200).body(comment);
+        CommentDTO dto = commentService.addComment(comment);
+        return ResponseEntity.status(200).body(dto);
     }
 
     // deletes a comment on a post
