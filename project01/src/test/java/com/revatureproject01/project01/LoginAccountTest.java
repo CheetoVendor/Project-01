@@ -40,7 +40,7 @@ public class LoginAccountTest {
     public void loginSuccessful() throws IOException, InterruptedException {
         String json = "{\"accountId\":0,\"username\":\"test\",\"password\":\"test\"}";
         HttpRequest postRequest = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/login"))
+                .uri(URI.create("http://localhost:8080/api/login"))
                 .POST(HttpRequest.BodyPublishers.ofString(json))
                 .header("Content-Type", "application/json")
                 .build();

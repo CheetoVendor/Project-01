@@ -26,9 +26,9 @@ public class ReactionService {
     // removes a reaction by type 1 (like) or type 2 (love)
     public int removeReaction(Integer postId, Integer userId, Integer type) {
         Like optionalLike = likeRepository.findByPostIdAndAccountIdAndType(postId, userId, type);
+
         if (optionalLike != null) {
             likeRepository.delete(optionalLike);
-
             return 1;
         } else {
             return 0;

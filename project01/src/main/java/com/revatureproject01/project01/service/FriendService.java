@@ -65,10 +65,11 @@ public class FriendService {
     }
 
     // accepts a friend request and puts to status 1 (accepted)
-    public void acceptFriendRequest(Integer friendId) {
+    public Friend acceptFriendRequest(Integer friendId) {
         Friend friend = friendRepository.findByFriendId(friendId);
         friend.setFriendStatus(1);
         friendRepository.save(friend);
+        return friend;
     }
 
     // declines a friend request and puts to status 0 (denied)

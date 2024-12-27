@@ -72,12 +72,13 @@ public class FriendController {
     @PatchMapping("/friends/{friendId}")
     public ResponseEntity updateFriendRequest(@PathVariable Integer friendId, @RequestBody Integer type) {
         if (type == 1) {
-            friendService.acceptFriendRequest(friendId);
+            Friend friend = friendService.acceptFriendRequest(friendId);
+            return ResponseEntity.status(200).body(friend);
         } else {
             friendService.declineFriendRequest(friendId);
+            return ResponseEntity.status(200).body("request updated.");
         }
 
-        return ResponseEntity.status(200).body("request updated.");
     }
 
     // deletes a friend
